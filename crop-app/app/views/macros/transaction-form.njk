@@ -1,0 +1,36 @@
+{% macro transactionForm(orgs) %}
+<form action="" method="post">
+  <div class="field">
+    <label class="label">下一级服务商名</label>
+    <div class="control">
+      <div class="select">
+        <select name="newOwner">
+
+          {% for org in orgs %}
+            {% if org.factoryName %}
+              <option>{{ org.factoryName}}</option>
+            {% endif %}
+            {% if org.serverName %}
+            <option>{{ org.serverName}}</option>
+            {% endif %}
+            {% if org.retailerName %}
+            <option>{{ org.retailerName}}</option>  
+            {% endif %}               
+          {% else %}
+            <option>Finished</option> 
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-grouped">
+    <div class="control">
+      <button type="submit" class="button is-link">确定</button>
+    </div>
+    <div class="control">
+      <a href="/dashboard/pending" class="button is-link is-light">取消</a>
+    </div>
+  </div>
+</form>
+{% endmacro %}

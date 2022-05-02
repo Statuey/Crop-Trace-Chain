@@ -1,0 +1,35 @@
+---
+name: crop_chain_org${ORG}
+version: 1.0.0
+client:
+  organization: Org${ORG}
+  connection:
+    timeout:
+      peer:
+        endorser: '300'
+organizations:
+  Org${ORG}:
+    mspid: Org${ORG}MSP
+    peers:
+    - peer0.org${ORG}.trace.com
+    certificateAuthorities:
+    - ca.org${ORG}.trace.com
+peers:
+  peer0.org${ORG}.trace.com:
+    url: grpcs://localhost:${P0PORT}
+    tlsCACerts:
+      pem: |
+          ${PEERPEM}
+    grpcOptions:
+      ssl-target-name-override: peer0.org${ORG}.trace.com
+      hostnameOverride: peer0.org${ORG}.trace.com
+certificateAuthorities:
+  ca.org${ORG}.trace.com:
+    url: https://localhost:${CAPORT}
+    caName: ca-org${ORG}
+    tlsCACerts:
+      pem: 
+        - |
+          ${CAPEM}
+    httpOptions:
+      verify: false

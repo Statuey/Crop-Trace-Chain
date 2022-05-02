@@ -1,0 +1,17 @@
+{% extends "layouts/customer.njk" %}
+{% from "macros/cargo-form.njk" import cargoForm %}
+{% block content %}
+  <div class="container">
+    <section class="section">
+
+      {% if status %}
+      <h1 class="title">货运单详情</h1>
+      <h2 class="subtitle">cargo info details</h2>
+      {% else %}
+      <h1 class="title">创建货运单</h1>
+      <h2 class="subtitle">请仔细输入以下信息，一旦创建将无法修改！</h2>
+      {% endif %}
+      {{ cargoForm(drivers,result,status,cropId = cropId) }}
+    </section>
+  </div>
+{% endblock %}

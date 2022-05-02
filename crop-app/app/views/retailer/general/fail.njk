@@ -1,0 +1,19 @@
+{% extends "layouts/retailer.njk" %}
+
+{% block content %}
+  <div class="container">
+    <section class="hero is-warning">
+      <div class="hero-body">
+        <p class="title">
+          创建失败！
+        </p>
+        <p class="subtitle">
+          点击确定返回
+        </p>
+      </div>
+    </section>
+    <section class="section">
+      <a class="button is-warning is-rounded" href="/dashboard/create/{{des}}">确认</a>
+    </section>
+  </div>
+{% endblock %}

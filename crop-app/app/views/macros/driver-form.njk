@@ -1,0 +1,64 @@
+{% macro driverForm(result,status) %}
+<form action="" method="post">
+  <div class="field">
+    <label class="label">司机名</label>
+    <div class="control">
+      <input class="input" name="drivername" type="text" value="{{ result.driverName }}" {{ status }} />
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">司机生日</label>
+    <div class="control">
+      <input class="input" name="birthday" type="text" value="{{ result.birthday }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">从业起始时间</label>
+    <div class="control">
+      <input class="input" name="accesstime" type="text" value="{{ result.accessTime }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">性别</label>
+    <div class="control">
+      {% if status %}
+        <div class="control">
+          <input class="input" name="gender" type="text" value="{{ result.gender }}" {{ status }} />
+        </div>
+      {% else %}
+        <div class="select">
+          <select name="gender">
+            <option>男</option>
+            <option>女</option>
+          </select>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">联系电话</label>
+    <div class="control">
+      <input class="input" name="drivertel" type="text" value="{{ result.driverTel}}" {{ status }}/>
+    </div>
+  </div>
+
+  {% if status %}
+    <div class="control">
+      <a href="/dashboard/members" class="button is-link">返回</a>
+    </div>
+  {% else %}
+  <div class="field is-grouped">
+    <div class="control">
+      <button type="submit" class="button is-link">确定</button>
+    </div>
+    <div class="control">
+      <button type="reset" class="button is-link is-light">取消</button>
+    </div>
+  </div>
+  {% endif %}
+</form>
+{% endmacro %}

@@ -1,0 +1,57 @@
+{% extends "layouts/producer.njk" %}
+
+{% block content %}
+  <div class="container">
+    <section class="section">
+    <h1 class="title">生长档案列表</h1>
+    <h2 class="subtitle">grow info list</h2>
+
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable ">
+        <thead>
+          <tr>
+            <th>订单号</th>
+            <th>创建单位</th>
+            <th>创建时间</th>
+            <th>备注</th>
+            <th>详情</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for result in results %}
+            <tr>
+              <th>
+                <a href="/dashboard/crops/{{ result.crop_id }}">
+                  <span class="icon">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  </span>
+                  <span>#{{ result.crop_id }}</span>
+                </a>
+              </th>
+              <td>
+                <a href="/dashboard/member/{{ result.farmer_id }}">
+                  <span class="has-text-grey-dark">{{ result.farmer_name }}</span>
+                </a>
+              </td>
+              <td>
+                <span class="has-text-grey-dark">{{ result.record_time }}</span>
+              </td>
+              <td>
+                <span class="has-text-grey-light">{{ result.remarks }}</span>
+              </td>
+              <td>
+                <a href="/dashboard/{{ result.grow_id }}">
+                  <span class="icon">
+                    <i class="fa-solid fa-circle-info"></i>
+                  </span>
+                  <span>#{{ result.grow_id }}</span>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    </section>
+  </div>
+  {% endblock %}

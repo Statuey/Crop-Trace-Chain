@@ -1,0 +1,17 @@
+{% extends "layouts/producer.njk" %}
+
+{% from "macros/info-form.njk" import infoForm %}
+
+{% block content %}
+  <div class="container">
+      <section class="section">
+      {% if status %}
+      <h1 class="title">农场信息</h1>
+      <h2 class="subtitle">farm details</h2>
+      {% else %}
+        <h1 class="title">添加农场信息</h1>
+        <h2 class="subtitle">请仔细输入以下信息</h2>
+      {% endif %}
+    {{ infoForm("/dashboard/infos",result,status) }}
+  </div>
+{% endblock %}

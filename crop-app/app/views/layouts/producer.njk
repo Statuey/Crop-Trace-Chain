@@ -1,0 +1,24 @@
+{% extends "layouts/application.njk" %}
+
+{% block navbar %}
+  <div class="buttons">
+    <a class="button is-text" onclick="deleteCookie()" href="/login">
+      <strong>注销</strong>
+    </a>
+  </div>
+{% endblock %}
+
+{% block main %}
+  <section class="main-content columns is-fullheight">
+    <aside class="column is-2 section has-background-light">
+      {% block sidebar %}
+        {% include "partials/producer-sidebar.njk" %}
+      {% endblock %}
+    </aside>
+    <main class="column is-10 section">
+      {% block content %}
+        {# 内容 #}
+      {% endblock %}
+    </main>
+  </section>
+{% endblock %}

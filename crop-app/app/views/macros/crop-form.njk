@@ -1,0 +1,85 @@
+{% macro cropForm(plants,result,status) %}
+<form action="" method="post">
+  
+  <div class="field">
+    <label class="label">作物名</label>
+    <div class="control">
+      {% if status %}
+        <div class="control">
+          <input class="input" name="plantname" type="text" value="{{ result.plant_name }}" {{ status }} />
+        </div>
+      {% else %}
+        <div class="select">
+          <select name="plantname" value="{{ result.plant_name }}" {{ status }}>
+            {% for plant in plants %}
+              <option>{{ plant.plantName}}</option>
+            {% else %}
+              <option>null</option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">种植时间</label>
+    <div class="control">
+      <input class="input" name="plantdate" type="text" value="{{ result.plant_date }}" {{ status }} />
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">收获时间</label>
+    <div class="control">
+      <input class="input" name="harvestdate" type="text" value="{{ result.harvest_date }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">作物净重(kg)</label>
+    <div class="control">
+      <input class="input" name="cropweight" type="text" value="{{ result.crop_weight }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">作物简介</label>
+    <div class="control">
+      <input class="input" name="intro" type="text" value="{{ result.intro }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">备注</label>
+    <div class="control">
+      <input class="input" name="remarks" type="text" value="{{ result.remarks }}" {{ status }}/>
+    </div>
+  </div>
+
+  {% if status %}
+
+    <div class="field">
+    <label class="label">当前阶段</label>
+    <div class="control">
+      <input class="input" name="plantname" type="text" value="{{ result.current_phase }}" {{ status }} />
+    </div>
+    </div> 
+  {% endif %}
+
+  {% if status %}
+    <div class="control">
+      <a href="/dashboard/pending" class="button is-link">返回</a>
+    </div>
+  {% else %}
+    <div class="field is-grouped">
+      <div class="control">
+        <button type="submit" class="button is-link">确定</button>
+      </div>
+      <div class="control">
+        <button type="reset" class="button is-link is-light">取消</button>
+      </div>
+    </div>
+  {% endif %}
+</form>
+{% endmacro %}

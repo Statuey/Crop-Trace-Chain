@@ -1,0 +1,89 @@
+{% macro retForm(action,result,status) %}
+<form action="{{ action }}" method="post" enctype="multipart/form-data">
+  <div class="field">
+    <label class="label">销售商名</label>
+    <div class="control">
+      <input class="input" name="retailername" type="text" value="{{ result.retailerName }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">创立时间</label>
+    <div class="control">
+      <input class="input" name="foundtime" type="text" value="{{ result.foundTime }}" {{ status }}/>
+    </div>
+  </div>
+
+  {% if status %}
+    <label class="label">资质证明</label>
+    <div class="control block">
+      <figure>
+        <img src="/{{ result.certificate }}" width="180" height="240">
+      </figure>
+    </div>
+  {% else %}
+  <div class="field">
+    <label class="label">资质证明</label>
+    <div class="file has-name is-fullwidth" id="certificate">
+      <label class="file-label">
+        <input class="file-input" type="file" name="certificate">
+        <span class="file-cta">
+          <span class="file-icon">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span class="file-label">
+            Choose a file…
+          </span>
+        </span>
+        <span class="file-name">
+          File Name
+        </span>
+      </label>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="field">
+    <label class="label">员工数</label>
+    <div class="control">
+      <input class="input" name="hc" type="text" value="{{ result.hc }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">销售商地址</label>
+    <div class="control">
+      <input class="input" name="address" type="text" value="{{ result.address }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">销售商负责人</label>
+    <div class="control">
+      <input class="input" name="bossname" type="text" value="{{ result.bossName }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">负责人电话</label>
+    <div class="control">
+      <input class="input" name="bosstel" type="text" value="{{ result.bossTel }}" {{ status }}/>
+    </div>
+  </div>
+
+  {% if status %}
+    <div class="control">
+      <a href="/dashboard" class="button is-link">返回</a>
+    </div>
+  {% else %}
+  <div class="field is-grouped">
+    <div class="control">
+      <button type="submit" class="button is-link">确定</button>
+    </div>
+    <div class="control">
+      <button type="reset" class="button is-link is-light">取消</button>
+    </div>
+  </div>
+  {% endif %}
+</form>
+{% endmacro %}

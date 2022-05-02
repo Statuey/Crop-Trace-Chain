@@ -1,0 +1,37 @@
+{% set links %}
+{% include 'data/producer-links.json' %}
+{% endset %}
+
+{% set links = (links | json) %}
+
+<p class="menu-label">General</p>
+<ul class="menu-list">
+  {% for link in links.general %}
+    <li>
+      <a href="{{ link.href }}" class="{% if request.originalUrl == link.href %}is-active{% endif %}">
+        <span class="icon-text">
+          <span class="icon">
+            <i class="fa {{ link.icon }}"></i>
+          </span>
+          <span>{{ link.name }}</span>
+        </span>
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+<p class="menu-label">Create</p>
+<ul class="menu-list">
+  {% for link in links.create %}
+    <li>
+      <a href="{{ link.href }}" class="{% if request.originalUrl == link.href %}is-active{% endif %}">
+        <span class="icon-text">
+          <span class="icon">
+            <i class="fa {{ link.icon }}"></i>
+          </span>
+          <span>{{ link.name }}</span>
+        </span>
+      </a>
+    </li>
+  {% endfor %}
+</ul>

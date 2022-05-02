@@ -1,0 +1,76 @@
+{% extends "layouts/application.njk" %}
+
+{% block main %}
+  <section class="main-content columns is-fullheight">
+    <aside class="column is-2 section has-background-light">
+      <p class="menu-label">General</p>
+      <ul class="menu-list">
+          <li>
+            <a href="/trace/{{cropId}}">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa fa-circle-info"></i>
+                </span>
+                <span>主页</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="/trace/{{cropId}}/growInfo">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa fa-circle-info"></i>
+                </span>
+                <span>生长状况</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="/trace/{{cropId}}/machining">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa fa-circle-info"></i>
+                </span>
+                <span>加工订单</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="/trace/{{cropId}}/cargo">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa fa-circle-info"></i>
+                </span>
+                <span>物流订单</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="/trace/{{cropId}}/product">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa fa-circle-info"></i>
+                </span>
+                <span>销售订单</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="/trace/{{cropId}}/cert">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa fa-circle-info"></i>
+                </span>
+                <span>公链证明</span>
+              </span>
+            </a>
+          </li>
+      </ul>
+    </aside>
+    <main class="column is-10 section">
+      {% block content %}
+        {# 内容 #}
+      {% endblock %}
+    </main>
+  </section>
+{% endblock %}

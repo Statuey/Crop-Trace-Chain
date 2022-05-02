@@ -1,0 +1,90 @@
+{% macro machiningForm(workshops,result,status,cropId) %}
+<form action="" method="post">
+  <div class="field">
+    <label class="label">负责车间</label>
+    <div class="control">
+      {% if status %}
+        <div class="control">
+          <input class="input" name="workshopname" type="text" value="{{ result.workshop_name }}" {{ status }} />
+        </div>
+      {% else %}
+        <div class="select">
+          <select name="workshopname">
+            {% for workshop in workshops %}
+              <option>{{ workshop.workshopName}}</option>
+            {% else %}
+              <option>null</option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">检测结果</label>
+    <div class="control">
+      {% if status %}
+        <div class="control">
+          <input class="input" name="testingresult" type="text" value="{{ result.testing_result }}" {{ status }} />
+        </div>
+      {% else %}
+        <div class="select">
+          <select name="testingresult">
+              <option>合格</option>
+              <option>存疑</option>
+              <option>不合格</option>
+          </select>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">入库时间</label>
+    <div class="control">
+      <input class="input" name="infactorytime" type="text" value="{{ result.in_factory_time }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">出库时间</label>
+    <div class="control">
+      <input class="input" name="outfactorytime" type="text" value="{{ result.out_factory_time }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">质检过程图片</label>
+    <div class="control">
+      <input class="input" name="testingphotourl" type="text" value="{{ result.testing_photo_url }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">备注</label>
+    <div class="control">
+      <input class="input" name="remarks" type="text" value="{{ result.remarks }}" {{ status }}/>
+    </div>
+  </div>
+
+  {% if cropId %}
+    <div class="control">
+      <a href="/{{cropId}}" class="button is-link">返回</a>
+    </div>
+  {% elif status %}
+    <div class="control">
+      <a href="/dashboard" class="button is-link">返回</a>
+    </div>
+  {% else %}
+    <div class="field is-grouped">
+      <div class="control">
+        <button type="submit" class="button is-link">确定</button>
+      </div>
+      <div class="control">
+        <button type="reset" class="button is-link is-light">取消</button>
+      </div>
+    </div>
+  {% endif %}
+</form>
+{% endmacro %}

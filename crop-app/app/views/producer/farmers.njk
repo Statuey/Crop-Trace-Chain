@@ -1,0 +1,51 @@
+{% extends "layouts/producer.njk" %}
+
+
+{% block content %}
+  <div class="container">
+    <section class="section">
+    <!-- Main container -->
+    <nav class="level">
+      <!-- Left side -->
+      <div class="level-left">
+        <div class="level-item">
+          <p class="mb-6 title is-3">农户列表</p>
+        </div>
+      </div>
+      <!-- Right side -->
+      <div class="level-right">
+        <p class="level-item">
+          <a href="/dashboard/create/member" class="button is-info">New</a>
+        </p>
+      </div>
+    </nav>
+      <div class="table-container">
+        <table class="table is-fullwidth is-hoverable ">
+          <thead>
+            <tr>
+              <th>农户编号</th>
+              <th>农户名</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for result in results %}
+              <tr>
+                <th>
+                  <a href="/dashboard/member/{{ result.farmerId }}">
+                    <span class="icon">
+                      <i class="fas fa-book" aria-hidden="true"></i>
+                    </span>
+                    <span>#{{ result.farmerId }}</span>
+                  </a>
+                </th>
+                <td>
+                  <span class="has-text-grey-dark">{{ result.farmerName }}</span>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      </section>
+    </div>
+  {% endblock %}

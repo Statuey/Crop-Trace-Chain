@@ -1,0 +1,64 @@
+{% macro cargoForm(drivers,result,status,cropId) %}
+<form action="" method="post">
+  <div class="field">
+    <label class="label">负责司机</label>
+    <div class="control">
+      {% if status %}
+        <div class="control">
+          <input class="input" name="drivername" type="text" value="{{ result.driver_name }}" {{ status }} />
+        </div>
+      {% else %}
+        <div class="select">
+          <select name="drivername">
+            {% for driver in drivers %}
+              <option>{{ driver.driverName}}</option>
+            {% else %}
+              <option>null</option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">当前地址</label>
+    <div class="control">
+      <input class="input" name="currentaddress" type="text" value="{{ result.current_address }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">目的地址</label>
+    <div class="control">
+      <input class="input" name="destination" type="text" value="{{ result.destination }}" {{ status }}/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">备注</label>
+    <div class="control">
+      <input class="input" name="remarks" type="text" value="{{ result.remarks }}" {{ status }}/>
+    </div>
+  </div>
+
+  {% if cropId %}
+    <div class="control">
+      <a href="/{{cropId}}" class="button is-link">返回</a>
+    </div>
+  {% elif status %}
+    <div class="control">
+      <a href="/dashboard" class="button is-link">返回</a>
+    </div>
+  {% else %}
+    <div class="field is-grouped">
+      <div class="control">
+        <button type="submit" class="button is-link">确定</button>
+      </div>
+      <div class="control">
+        <button type="reset" class="button is-link is-light">取消</button>
+      </div>
+    </div>
+  {% endif %}
+</form>
+{% endmacro %}

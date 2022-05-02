@@ -1,0 +1,36 @@
+{
+  "general": [
+    {
+      "href": "/dashboard",
+      "icon": "fa-home",
+      "name": "主页"
+    },
+    {
+      "href": "/dashboard/infos",
+      "icon": "fa-circle-info",
+      "name": "基本信息"
+    },
+    {
+      "href": "/dashboard/members",
+      "icon": "fa-list-check",
+      "name": "经销商管理"
+    },
+    {
+      "href": "/dashboard/pending",
+      "icon": "fa-clipboard-check",
+      "name": "待处理订单"
+    }
+  ],
+  "create": [
+    {
+      "href": "/dashboard/create/member",
+      "icon": "fa-circle-plus",
+      "name": "添加经销商信息"
+    },
+    {
+      "href": "/dashboard/tochain",
+      "icon": "fa-circle-plus",
+      "name": "上传公链"
+    }
+  ]
+}

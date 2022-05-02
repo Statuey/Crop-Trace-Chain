@@ -1,0 +1,17 @@
+{% extends "layouts/customer.njk" %}
+{% from "macros/grow-form.njk" import growForm %}
+{% block content %}
+  <div class="container">
+    <section class="section">
+
+      {% if status %}
+      <h1 class="title">生长状况档案详情</h1>
+      <h2 class="subtitle">grow info details</h2>
+      {% else %}
+      <h1 class="title">创建生长状况档案</h1>
+      <h2 class="subtitle">请仔细输入以下信息，一旦创建将无法修改！</h2>
+      {% endif %}
+      {{ growForm(farmers,result,status,cropId = cropId) }}
+    </section>
+  </div>
+{% endblock %}

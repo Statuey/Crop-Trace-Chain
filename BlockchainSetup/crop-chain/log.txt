@@ -1,0 +1,2 @@
+Committed chaincode definition for chaincode 'crop' on channel 'mychannel':
+Version: 1.0, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc, Approvals: [Org1MSP: true, Org2MSP: true, Org3MSP: true, Org4MSP: true, Org5MSP: true]

@@ -1,0 +1,21 @@
+{% extends "layouts/retailer.njk" %}
+{% from "macros/upload-form.njk" import uploadForm %}
+{% block web3 %}
+  {% set data %}
+  {% include 'data/upload-crop.json' %}
+  {% endset %}
+  {% set data = (data | safe) %}
+  <script crossorigin="anonymous">const data={{data}};</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="/js/web3.min.js" crossorigin="anonymous"></script>
+  <script src="/js/truffle-contract.js" crossorigin="anonymous"></script>
+  <script src="/js/initWeb3.js" crossorigin="anonymous"></script>
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <section class="section">
+      <h2 class="title is-4">公链上传：</h2>
+      {{ uploadForm(cropId,hash) }}
+    </section>
+  </div>
+{% endblock %}

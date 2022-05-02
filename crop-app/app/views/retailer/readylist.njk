@@ -1,0 +1,48 @@
+{% extends "layouts/retailer.njk" %}
+
+{% block content %}
+  <div class="container">
+    <section class="section">
+      <h1 class="title is-3">待上公链订单</h1>
+      <h2 class="subtitle mb-6">pending</h2>
+      <h2 class="title is-4">订单预览：</h2>
+      <div class="table-container">
+        <table class="table is-fullwidth is-hoverable ">
+          <thead>
+            <tr>
+              <th>作物订单号</th>
+              <th>作物名</th>
+              <th>创建时间</th>
+              <th>操作
+            </tr>
+          </thead>
+          <tbody>
+            {% for result in results %}
+              <tr>
+                <th>
+                  <a href="crops/{{result.crop_id}}">
+                    <span class="icon">
+                      <i class="fas fa-book" aria-hidden="true"></i>
+                    </span>
+                    <span>#{{ result.crop_id }}</span>
+                  </a>
+                </th>
+                <td>
+                  <span class="has-text-grey-dark">{{ result.plant_name }}</span>
+                </td>
+                <td>
+                  <span class="has-text-grey-dark">{{ result.create_time }}</span>
+                </td>
+                <td>
+                  <a href="tochain/{{result.crop_id}}">
+                    <span>上链</span>
+                  </a>              
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+{% endblock %}

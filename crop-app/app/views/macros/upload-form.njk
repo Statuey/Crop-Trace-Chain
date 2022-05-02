@@ -1,0 +1,28 @@
+{% macro uploadForm(cropId,hash) %}
+<form action="" method="post" onSubmit="return App.uploadInfo()" role="form">
+  <div class="field">
+    <label class="label">订单号</label>
+    <div class="control">
+      <input id="cropId" class="input" disabled  name="cropId" type="text" value={{ cropId }} />
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">哈希值</label>
+    <div class="control">
+      <input id="hash" class="input" disabled name="hash" type="text" value={{ hash }} />
+    </div>
+  </div>
+
+    <div class="field is-grouped">
+    <div class="control">
+      <button  type="submit" class="button is-link uploaded">确定</button>
+    </div>
+    <div class="control">
+      <a href="/dashboard/tochain" class="button is-link is-light">返回</a>
+    </div>
+
+  </div>
+
+</form>
+{% endmacro %}

@@ -1,0 +1,49 @@
+{% macro loginForm(action, messages, initValue, orgDisplay) %}
+  <form action="{{ action }}" method="post">
+    <div class="field">
+      <label class="label">账号</label>
+      <div class="control">
+        <input class="input" name="username" type="text" value="{{ initValue.username }}"/>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">密码</label>
+      <div class="control">
+        <input class="input" name="password" type="text" value="{{ initValue.password }}"/>
+      </div>
+    </div>
+    {% if orgDisplay %}
+      <div class="field">
+        <label class="label">所属组织</label>
+        <div class="select">
+          <select name="organization">
+            <option value="Producer">生产商</option>
+            <option value="Transport">物流商</option>
+            <option value="Process">加工商</option>
+            <option value="Retailer">销售商</option>
+          </select>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if messages.length %}
+      <article class="message is-danger">
+        <div class="message-body">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      </article>
+    {% endif %}
+
+    <div class="field is-grouped">
+      <div class="control">
+        <button type="submit" class="button is-link">确定</button>
+      </div>
+      <div class="control">
+        <button type="reset" class="button is-link is-light">取消</button>
+      </div>
+    </div>
+  </form>
+{% endmacro %}</p>

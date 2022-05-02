@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"/>
+    <script src="/js/delete-cookie.js" crossorigin="anonymous"></script>
+    <script src="/js/modal-trigger.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/d98aeac500.js" crossorigin="anonymous"></script>
+    {% block web3 %}{% endblock %}
+    <title>Crop Trace Chain</title>
+  </head>
+  <body>
+    <nav class="navbar is-white has-shadow">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <strong>Crop Trace Chain</strong>
+        </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            {% block navbar %}
+              <div class="buttons">
+                <a class="button is-link" href="/signup">
+                  <strong>注册</strong>
+                </a>
+                <a class="button is-light" href="/login">登录</a>
+              </div>
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </nav>
+    <main>
+      {% block main %}{% endblock %}
+    </main>
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>Copyright © 2022 Zihan Yan</p>
+      </div>
+    </footer>
+    <div id="confirm" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">请确认您的操作</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          点击确认完成操作
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success">确认</button>
+          <button class="button">取消</button>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
