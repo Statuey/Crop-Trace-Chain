@@ -1,8 +1,50 @@
 {% extends "layouts/customer.njk" %}
+{% block web3 %}
+  {% set data %}
+  {% include 'data/upload-crop.json' %}
+  {% endset %}
+  {% set data = (data | safe) %}
+  <script crossorigin="anonymous">const data={{data}};</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="/js/web3.min.js" crossorigin="anonymous"></script>
+  <script src="/js/truffle-contract.js" crossorigin="anonymous"></script>
+  <script src="/js/initWeb3.js" crossorigin="anonymous"></script>
+{% endblock %}
 {% block content %}
   <div class="container">
     <section class="section">
-asajkjlkj
+      <h1 class="title">公链上传信息</h1>
+      <h2 class="subtitle">on-chain info details</h2>
+    <div class="field">
+      <label class="label">校验哈希值</label>
+      <div class="control">
+        <p class="control">
+        <input class="input" disabled type="text" value={{ hash }}>
+        </p>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">链上哈希值</label>
+      <div class="control">
+        <p class="control">
+        <input id="display" class="input" disabled type="text" placeholder="当前crop ID为{{cropId}}">
+        </p>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">合约地址</label>
+      <div class="control">
+        <input id="address" class="input" disabled type="text">
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+    <div class="control">
+      <button id="query" type="button" class="button is-info" onclick=checkHash("{{cropId}}")>查询</button>
+    </div>  
+    <div class="control">
+      <button id="check" type="button" disabled class="button is-loading is-light")>等待</button>
+    </div>
     </section>
   </div>
 {% endblock %}

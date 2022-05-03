@@ -1,5 +1,5 @@
 {% macro growForm(farmers,result,status,cropId) %}
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
   <div class="field">
     <label class="label">负责农户名</label>
     <div class="control">
@@ -21,11 +21,19 @@
     </div>
   </div>
 
+  {% if status %}
+    <label class="label">生长状况快照</label>
+    <div class="control block">
+      <figure>
+        <img src="/{{ result.crop_grow_photo_url }}" width="240" height="180">
+      </figure>
+    </div>
+  {% else %}
   <div class="field">
     <label class="label">生长状况快照</label>
-    <div class="file has-name is-fullwidth">
+    <div class="file has-name is-fullwidth" id="certificate">
       <label class="file-label">
-        <input class="file-input" type="file" name="cropgrowphotourl">
+        <input class="file-input" type="file" name="photourl">
         <span class="file-cta">
           <span class="file-icon">
             <i class="fas fa-upload"></i>
@@ -40,13 +48,7 @@
       </label>
     </div>
   </div>
-
-  {# <div class="field">
-    <label class="label">生长状况快照</label>
-    <div class="control">
-      <input class="input" name="cropgrowphotourl" type="text" value="{{ result.crop_grow_photo_url }}" {{ status }}/>
-    </div>
-  </div> #}
+  {% endif %}
 
   <div class="field">
     <label class="label">生长状况</label>
@@ -111,7 +113,6 @@
 
   {% if cropId %}
     <div class="control">
-      <a href="/{{cropId}}" class="button is-link">返回</a>
     </div>
   {% elif status %}
     <div class="control">
@@ -128,4 +129,5 @@
     </div>
   {% endif %}
 </form>
+<script src="/js/display-img.js" crossorigin="anonymous"></script>
 {% endmacro %}

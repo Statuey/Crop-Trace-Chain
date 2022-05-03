@@ -1,5 +1,5 @@
 {% macro cargoForm(drivers,result,status,cropId) %}
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
   <div class="field">
     <label class="label">负责司机</label>
     <div class="control">
@@ -35,6 +35,35 @@
     </div>
   </div>
 
+  {% if status %}
+    <label class="label">物流快照</label>
+    <div class="control block">
+      <figure>
+        <img src="/{{ result.cargo_photo_url}}" width="240" height="180">
+      </figure>
+    </div>
+  {% else %}
+  <div class="field">
+    <label class="label">物流快照</label>
+    <div class="file has-name is-fullwidth" id="certificate">
+      <label class="file-label">
+        <input class="file-input" type="file" name="photourl">
+        <span class="file-cta">
+          <span class="file-icon">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span class="file-label">
+            Choose a file…
+          </span>
+        </span>
+        <span class="file-name">
+          File Name
+        </span>
+      </label>
+    </div>
+  </div>
+  {% endif %}
+
   <div class="field">
     <label class="label">备注</label>
     <div class="control">
@@ -44,7 +73,6 @@
 
   {% if cropId %}
     <div class="control">
-      <a href="/{{cropId}}" class="button is-link">返回</a>
     </div>
   {% elif status %}
     <div class="control">
@@ -61,4 +89,5 @@
     </div>
   {% endif %}
 </form>
+<script src="/js/display-img.js" crossorigin="anonymous"></script>
 {% endmacro %}

@@ -1,12 +1,38 @@
 {% extends "layouts/application.njk" %}
+{% block mobile %}
+  <nav class="navbar is-hidden-tablet is-light has-shadow" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img src="/img/logo.png"  width="112" height="28">
+      </a>
 
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu is-hoverable">
+      <a class="navbar-item has-text-centered has-text-weight-normal" href="/trace/{{cropId}}" class={% if target=="home"%}"is-active"{% endif %}>主页</a>
+      <a class="navbar-item has-text-centered has-text-weight-normal" href="/trace/{{cropId}}/growInfo" class={% if target=="growInfo"%}"is-active"{% endif %}>生长状况</a>
+      <a class="navbar-item has-text-centered has-text-weight-normal" href="/trace/{{cropId}}/cargo1" class={% if target=="cargo1"%}"is-active"{% endif %}>物流订单#1</a>
+      <a class="navbar-item has-text-centered has-text-weight-normal" href="/trace/{{cropId}}/machining" class={% if target=="machining"%}"is-active"{% endif %}>加工订单</a>
+      <a class="navbar-item has-text-centered has-text-weight-normal" href="/trace/{{cropId}}/cargo2" class={% if target=="cargo2"%}"is-active"{% endif %}>物流订单#2</a>
+      <a class="navbar-item has-text-centered has-text-weight-normal" href="/trace/{{cropId}}/product" class={% if target=="product"%}"is-active"{% endif %}>销售订单</a>
+    </div>
+
+
+  </div>
+    </div>
+  </nav>
+{% endblock %}
 {% block main %}
-  <section class="main-content columns is-fullheight">
-    <aside class="column is-2 section has-background-light">
+  <section class="main-content columns ">
+    <nav class="column is-2 section has-background-light is-hidden-mobile">
       <p class="menu-label">General</p>
       <ul class="menu-list">
           <li>
-            <a href="/trace/{{cropId}}">
+            <a href="/trace/{{cropId}}" class={% if target=="home"%}"is-active"{% endif %}>
               <span class="icon-text">
                 <span class="icon">
                   <i class="fa fa-circle-info"></i>
@@ -16,7 +42,7 @@
             </a>
           </li>
           <li>
-            <a href="/trace/{{cropId}}/growInfo">
+            <a href="/trace/{{cropId}}/growInfo" class={% if target=="growInfo"%}"is-active"{% endif %}>
               <span class="icon-text">
                 <span class="icon">
                   <i class="fa fa-circle-info"></i>
@@ -26,7 +52,17 @@
             </a>
           </li>
           <li>
-            <a href="/trace/{{cropId}}/machining">
+            <a href="/trace/{{cropId}}/cargo1" class={% if target=="cargo1"%}"is-active"{% endif %}>
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa fa-circle-info"></i>
+                </span>
+                <span>物流订单#1</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="/trace/{{cropId}}/machining" class={% if target=="machining"%}"is-active"{% endif %}>
               <span class="icon-text">
                 <span class="icon">
                   <i class="fa fa-circle-info"></i>
@@ -36,17 +72,17 @@
             </a>
           </li>
           <li>
-            <a href="/trace/{{cropId}}/cargo">
+            <a href="/trace/{{cropId}}/cargo2" class={% if target=="cargo2"%}"is-active"{% endif %}>
               <span class="icon-text">
                 <span class="icon">
                   <i class="fa fa-circle-info"></i>
                 </span>
-                <span>物流订单</span>
+                <span>物流订单#2</span>
               </span>
             </a>
           </li>
           <li>
-            <a href="/trace/{{cropId}}/product">
+            <a href="/trace/{{cropId}}/product" class={% if target=="product"%}"is-active"{% endif %}>
               <span class="icon-text">
                 <span class="icon">
                   <i class="fa fa-circle-info"></i>
@@ -56,7 +92,7 @@
             </a>
           </li>
           <li>
-            <a href="/trace/{{cropId}}/cert">
+            <a href="/trace/{{cropId}}/cert" class={% if target=="cert"%}"is-active"{% endif %}>
               <span class="icon-text">
                 <span class="icon">
                   <i class="fa fa-circle-info"></i>
@@ -66,7 +102,8 @@
             </a>
           </li>
       </ul>
-    </aside>
+    </nav>
+
     <main class="column is-10 section">
       {% block content %}
         {# 内容 #}

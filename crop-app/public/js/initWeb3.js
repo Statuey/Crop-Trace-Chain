@@ -60,6 +60,32 @@ App = {
         });
     });
   },
+
+  getHash: function (cropId) {
+    var cropInstance;
+    web3.eth.getAccounts(function (error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+      var account = accounts[0];
+
+      App.contracts.Upload.deployed()
+        .then(async function (instance) {
+          cropInstance = instance;
+          result = await cropInstance.getHash(cropId, { from: account });
+          document.getElementById("display").value = result;
+          document.getElementById("address").value = cropInstance.address;
+          document.getElementById("time").value = cropInstance;
+          console.log(cropInstance);
+          document.getElementById("query").disabled = true;
+          console.log(result);
+        })
+        .catch(function (err) {
+          console.log(err.message);
+          return err;
+        });
+    });
+  },
 };
 
 $(function () {
@@ -67,3 +93,14 @@ $(function () {
     App.initWeb3();
   });
 });
+
+function checkHash(cropId, hash) {
+  result = App.getHash(cropId);
+  if (result == hash) {
+    document.getElementById("check").className = "button is-success";
+    document.getElementById("check").textContent = "正确";
+  } else {
+    document.getElementById("check").className = "button is-danger";
+    document.getElementById("check").textContent = "篡改";
+  }
+}

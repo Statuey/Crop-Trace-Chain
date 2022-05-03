@@ -272,6 +272,59 @@ router.post("/infos", upload.single("certificate"), async (req, res) => {
   }
 });
 
+//显示该组织详细信息
+router.get("/infos/update", async (req, res) => {
+  if (req.user) {
+    const org = req.user.organization;
+    const id = req.user.id;
+
+    if (org == "Producer") {
+      const result = await getFarmDetails(id);
+      if (result) {
+        res.render("producer/addinfo.njk", {
+          result: result,
+          update: "on",
+        });
+      } else {
+        res.render("producer/addinfo.njk");
+      }
+    } else if (org == "Process") {
+      const result = await getFactoryDetails(id);
+      if (result) {
+        res.render("process/addinfo.njk", {
+          result: result,
+          update: "on",
+        });
+      } else {
+        res.render("process/addinfo.njk");
+      }
+    } else if (org == "Transport") {
+      const result = await getServerDetails(id);
+      if (result) {
+        res.render("transport/addinfo.njk", {
+          result: result,
+          update: "on",
+        });
+      } else {
+        res.render("transport/addinfo.njk");
+      }
+    } else if (org == "Retailer") {
+      const result = await getRetailerDetails(id);
+      if (result) {
+        res.render("retailer/addinfo.njk", {
+          result: result,
+          update: "on",
+        });
+      } else {
+        res.render("retailer/addinfo.njk");
+      }
+    } else {
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
+
 //1.显示已经创建Crop但未创建Growinfo的作物 2.显示已经创建Crop和Growinfo但还未发往下一级的订单
 router.get("/pending", async (req, res) => {
   if (req.user) {
@@ -360,10 +413,10 @@ router.get("/pending", async (req, res) => {
             var key = collections[i].crop_id;
             try {
               var temp = await queryByCrop(contract, key);
-              if (temp.length == 1) {
-                console.log(temp.length);
+              console.log(temp.length);
+              if (temp.length == 1 && collections[i].current_phase == 3) {
                 sets2.push(collections[i]);
-              } else if (temp.length == 2) {
+              } else {
                 sets1.push(temp[0]);
               }
             } catch (err) {
@@ -811,7 +864,7 @@ router.post("/tochain/:cropId", async (req, res) => {
         await transactionCrop(contract, cropId, newPhase, newOwner);
         res.render("producer/general/success.njk");
       } catch (err) {
-        res.render("producer/general/fail.njk", { des: "crop" });
+        res.render("producer/general/fail.njk");
       }
       await releaseGateway(gateway);
     }
@@ -890,7 +943,6 @@ router.get("/:detailid", async (req, res) => {
 });
 
 //更新单个订单
-//还没有做！！
 router.get("/:detailid/update", async (req, res) => {
   const farmId = req.params.farmId;
   const gateway = await getGateway();
@@ -1040,7 +1092,7 @@ router.get("/create/:id", async (req, res) => {
 });
 
 //提交创建的表单
-router.post("/create/:id", async (req, res) => {
+router.post("/create/:id", upload.single("photourl"), async (req, res) => {
   if (req.user) {
     const org = req.user.organization;
     const id = req.user.id;
@@ -1055,7 +1107,7 @@ router.post("/create/:id", async (req, res) => {
         const farmer_id = String(num);
         const farmer_name = req.body.farmername;
         const record_time = d.toLocaleDateString();
-        const crop_grow_photo_url = req.body.cropgrowphotourl;
+        const crop_grow_photo_url = req.file.filename;
         const grow_status = req.body.growstatus;
         const fertilizer_name = req.body.fertilizername;
         const plat_mode = req.body.platmode;
@@ -1080,6 +1132,7 @@ router.post("/create/:id", async (req, res) => {
           illumination_status,
           remarks
         );
+        await releaseGateway(gateway);
         res.render("producer/general/success.njk");
       } catch (err) {
         console.log(err);
@@ -1096,7 +1149,7 @@ router.post("/create/:id", async (req, res) => {
         const testing_result = req.body.testingresult;
         const in_factory_time = req.body.infactorytime;
         const out_factory_time = req.body.outfactorytime;
-        const testing_photo_url = req.body.testingphotourl;
+        const testing_photo_url = req.file.filename;
         const remarks = req.body.remarks;
         const gateway = await getGateway();
         const network = gateway.getNetwork(channelName);
@@ -1115,6 +1168,7 @@ router.post("/create/:id", async (req, res) => {
           testing_photo_url,
           remarks
         );
+        await releaseGateway(gateway);
         res.render("process/general/success.njk");
       } catch (err) {
         console.log(err);
@@ -1132,6 +1186,7 @@ router.post("/create/:id", async (req, res) => {
         const on_chain_time = d.toLocaleDateString();
         const current_address = req.body.currentaddress;
         const destination = req.body.destination;
+        const cargo_photo_url = req.file.filename;
         const remarks = req.body.remarks;
         const gateway = await getGateway();
         const network = gateway.getNetwork(channelName);
@@ -1147,8 +1202,10 @@ router.post("/create/:id", async (req, res) => {
           on_chain_time,
           current_address,
           destination,
+          cargo_photo_url,
           remarks
         );
+        await releaseGateway(gateway);
         res.render("transport/general/success.njk");
       } catch (err) {
         console.log(err);
@@ -1162,7 +1219,7 @@ router.post("/create/:id", async (req, res) => {
         const retailer_id = String(id);
         const trader_id = String(num);
         const trader_name = req.body.tradername;
-        const retailer_cert_url = req.body.retailercerturl;
+        const retailer_cert_url = req.file.filename;
         const buyout_time = req.body.buyouttime;
         const remarks = req.body.remarks;
         const gateway = await getGateway();
@@ -1191,13 +1248,13 @@ router.post("/create/:id", async (req, res) => {
         //   buyout_time,
         //   remarks
         // );
+        await releaseGateway(gateway);
         res.render("retailer/general/success.njk");
       } catch (err) {
         console.log(err);
         res.render("retailer/general/fail.njk", { des: crop_id });
       }
     }
-    await releaseGateway(gateway);
   } else {
     res.redirect("/login");
   }

@@ -1,4 +1,4 @@
-{% macro infoForm(action,result,status) %}
+{% macro infoForm(action,result,status,update) %}
 <form action="{{ action }}" method="post" enctype="multipart/form-data" >
   <div class="field">
     <label class="label">农场名</label>
@@ -72,16 +72,21 @@
   </div>
 
   {% if status %}
+  <div class="field is-grouped">
+    <div class="control">
+      <a href="/dashboard/infos/update" class="button is-light is-success">更新</a>
+    </div>
     <div class="control">
       <a href="/dashboard" class="button is-link">返回</a>
     </div>
+  </div>
   {% else %}
   <div class="field is-grouped">
     <div class="control">
       <button type="submit" class="button is-link">确定</button>
     </div>
     <div class="control">
-      <button type="reset" class="button is-link is-light">取消</button>
+      <a href="/dashboard" class="button is-link is-light">返回</a>
     </div>
   </div>
   {% endif %}

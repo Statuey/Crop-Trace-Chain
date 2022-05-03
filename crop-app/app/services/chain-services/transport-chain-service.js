@@ -39,6 +39,7 @@ export async function recordCargo(
   onchainTime,
   currentAddress,
   destination,
+  cargoPhotoUrl,
   remarks
 ) {
   console.log(
@@ -56,6 +57,7 @@ export async function recordCargo(
     onchainTime,
     currentAddress,
     destination,
+    cargoPhotoUrl,
     remarks
   );
 }
@@ -70,6 +72,7 @@ export async function updateCargo(
   onchainTime,
   currentAddress,
   destination,
+  cargoPhotoUrl,
   remarks
 ) {
   console.log(
@@ -87,6 +90,7 @@ export async function updateCargo(
     onchainTime,
     currentAddress,
     destination,
+    cargoPhotoUrl,
     remarks
   );
 }

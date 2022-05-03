@@ -31,11 +31,13 @@ type Cargo struct {
 	CurrentAddress string `json:"current_address"`
 	//物流目的地
 	Destination string `json:"destination"`
+	//货物快照
+	CargoPhotoUrl string `json:"cargo_photo_url"`
 	//备注（始发地，途中，目的地）
 	Remarks string `json:"remarks"`
 }
 
-func (s *TransportContract) RecordCargo(ctx contractapi.TransactionContextInterface, cargoID string, cropID string, serverID string, serverName string, driverID string, driverName string, onchainTime string, currentAddress string, destination string, remarks string) error {
+func (s *TransportContract) RecordCargo(ctx contractapi.TransactionContextInterface, cargoID string, cropID string, serverID string, serverName string, driverID string, driverName string, onchainTime string, currentAddress string, destination string,cargoPhotoUrl string, remarks string) error {
 	exists, err := s.CargoExists(ctx, cargoID)
 	if err != nil {
 		return err
@@ -53,7 +55,9 @@ func (s *TransportContract) RecordCargo(ctx contractapi.TransactionContextInterf
 		DriverName:     driverName,
 		OnchainTime:    onchainTime,
 		CurrentAddress: currentAddress,
+		CargoPhotoUrl: cargoPhotoUrl,
 		Destination:    destination,
+
 		Remarks:        remarks,
 	}
 	transportJSON, err := json.Marshal(cargo)
@@ -64,7 +68,7 @@ func (s *TransportContract) RecordCargo(ctx contractapi.TransactionContextInterf
 	return ctx.GetStub().PutState(cargoID, transportJSON)
 }
 
-func (s *TransportContract) UpdateCargo(ctx contractapi.TransactionContextInterface, cargoID string, cropID string, serverID string, serverName string, driverID string, driverName string, onchainTime string, currentAddress string, destination string, remarks string) error {
+func (s *TransportContract) UpdateCargo(ctx contractapi.TransactionContextInterface, cargoID string, cropID string, serverID string, serverName string, driverID string, driverName string, onchainTime string, currentAddress string, destination string, cargoPhotoUrl string, remarks string) error {
 	cargo, err := s.ReadByCargo(ctx, cargoID)
 	if err != nil {
 		return err
@@ -79,6 +83,7 @@ func (s *TransportContract) UpdateCargo(ctx contractapi.TransactionContextInterf
 	cargo.OnchainTime = onchainTime
 	cargo.CurrentAddress = currentAddress
 	cargo.Destination = destination
+	cargo.CargoPhotoUrl = cargoPhotoUrl
 	cargo.Remarks = remarks
 
 	transportJSON, err := json.Marshal(cargoID)

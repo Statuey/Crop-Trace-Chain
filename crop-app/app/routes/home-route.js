@@ -115,11 +115,13 @@ router.get("/trace/:cropId", async (req, res) => {
       cropId: cropId,
       result: result,
       status: "disabled",
+      target: "home",
     });
   } catch (err) {
     console.error(err);
     res.send("failed!");
   }
+  await releaseGateway(gateway);
 });
 
 router.get("/trace/:cropId/growInfo", async (req, res) => {
@@ -134,11 +136,13 @@ router.get("/trace/:cropId/growInfo", async (req, res) => {
       cropId: cropId,
       result: result[0],
       status: "disabled",
+      target: "growInfo",
     });
   } catch (err) {
     console.error(err);
     res.send("failed!");
   }
+  await releaseGateway(gateway);
 });
 
 router.get("/trace/:cropId/machining", async (req, res) => {
@@ -153,30 +157,55 @@ router.get("/trace/:cropId/machining", async (req, res) => {
       cropId: cropId,
       result: result[0],
       status: "disabled",
+      target: "machining",
     });
   } catch (err) {
     console.error(err);
     res.send("failed!");
   }
+  await releaseGateway(gateway);
 });
 
-router.get("/trace/:cropId/cargo", async (req, res) => {
+router.get("/trace/:cropId/cargo1", async (req, res) => {
   const gateway = await getGateway();
   const network = gateway.getNetwork(channelName);
   const cropId = req.params.cropId;
   const contract = network.getContract(ccName4);
   try {
-    const result = await transportChain.queryByCrop(contract, cropId);
-    console.log(result);
+    const results = await transportChain.queryByCrop(contract, cropId);
+    console.log(results);
     res.render("customer/addcargo.njk", {
       cropId: cropId,
-      result: result[0],
+      result: results[1],
       status: "disabled",
+      target: "cargo1",
     });
   } catch (err) {
     console.error(err);
     res.send("failed!");
   }
+  await releaseGateway(gateway);
+});
+
+router.get("/trace/:cropId/cargo2", async (req, res) => {
+  const gateway = await getGateway();
+  const network = gateway.getNetwork(channelName);
+  const cropId = req.params.cropId;
+  const contract = network.getContract(ccName4);
+  try {
+    const results = await transportChain.queryByCrop(contract, cropId);
+    console.log(results);
+    res.render("customer/addcargo.njk", {
+      cropId: cropId,
+      result: results[0],
+      status: "disabled",
+      target: "cargo2",
+    });
+  } catch (err) {
+    console.error(err);
+    res.send("failed!");
+  }
+  await releaseGateway(gateway);
 });
 
 router.get("/trace/:cropId/product", async (req, res) => {
@@ -191,11 +220,13 @@ router.get("/trace/:cropId/product", async (req, res) => {
       cropId: cropId,
       result: result[0],
       status: "disabled",
+      target: "product",
     });
   } catch (err) {
     console.error(err);
     res.send("failed!");
   }
+  await releaseGateway(gateway);
 });
 
 router.get("/trace/:cropId/cert", async (req, res) => {
@@ -218,14 +249,16 @@ router.get("/trace/:cropId/cert", async (req, res) => {
       contract5,
       cropId
     );
-    console.log(hash);
     res.render("customer/chaincert.njk", {
       cropId: cropId,
       hash: hash,
+      target: "cert",
     });
   } catch (err) {
     console.log(err);
     res.render("customer/chaincert.njk");
   }
+
+  await releaseGateway(gateway);
 });
 export default router;

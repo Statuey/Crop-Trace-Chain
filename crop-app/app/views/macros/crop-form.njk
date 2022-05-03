@@ -1,4 +1,4 @@
-{% macro cropForm(plants,result,status) %}
+{% macro cropForm(plants,result,status,cropId) %}
 <form action="" method="post">
   
   <div class="field">
@@ -67,7 +67,10 @@
     </div> 
   {% endif %}
 
-  {% if status %}
+  {% if cropId %}
+    <div class="control">
+    </div>
+  {% elif status %}
     <div class="control">
       <a href="/dashboard/pending" class="button is-link">返回</a>
     </div>
