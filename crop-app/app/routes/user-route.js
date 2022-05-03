@@ -416,6 +416,8 @@ router.get("/pending", async (req, res) => {
               console.log(temp.length);
               if (temp.length == 1 && collections[i].current_phase == 3) {
                 sets2.push(collections[i]);
+              } else if (temp.length == 2) {
+                sets1.push(temp[1]);
               } else {
                 sets1.push(temp[0]);
               }
