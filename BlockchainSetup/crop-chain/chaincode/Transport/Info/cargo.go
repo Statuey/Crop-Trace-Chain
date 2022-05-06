@@ -83,7 +83,7 @@ func (s *TransportContract) UpdateCargo(ctx contractapi.TransactionContextInterf
 	cargo.OnchainTime = onchainTime
 	cargo.CurrentAddress = currentAddress
 	cargo.Destination = destination
-	cargo.CargoPhotoUrl = cargoPhotoUrl
+	cargo.CargoPhotoUrl = cargoPhotoUrl	
 	cargo.Remarks = remarks
 
 	transportJSON, err := json.Marshal(cargoID)
