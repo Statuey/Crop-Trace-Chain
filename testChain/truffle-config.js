@@ -1,6 +1,4 @@
 var HDWalletProvider = require("truffle-hdwallet-provider"); // 导入模块
-var mnemonic =
-  "eight uncover seminar evoke coin iron guide road elevator brain silver check"; //MetaMask的助记词。
 
 module.exports = {
   networks: {
