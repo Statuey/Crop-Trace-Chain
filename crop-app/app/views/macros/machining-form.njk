@@ -1,9 +1,22 @@
-{% macro machiningForm(workshops,result,status,cropId) %}
+{% macro machiningForm(workshops,result,status,cropId,platform) %}
 <form action="" method="post" enctype="multipart/form-data">
+  {% if platform %}
+  <div class="field">
+    <label class="label">所属工厂</label>
+        <div class="control">
+          <a class="is-link" href="factorys/{{ result.factory_id }}">{{ result.factory_name }}</a>
+        </div>
+  </div>
+  {% endif %}
+
   <div class="field">
     <label class="label">负责车间</label>
     <div class="control">
-      {% if status %}
+      {% if platform %}
+        <div class="control">
+          <a class="is-link" href="workshops/{{ result.workshop_id }}">{{ result.workshop_name }}</a>
+        </div>
+      {% elif status %}
         <div class="control">
           <input class="input" name="workshopname" type="text" value="{{ result.workshop_name }}" {{ status }} />
         </div>

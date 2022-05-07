@@ -1,9 +1,22 @@
-{% macro growForm(farmers,result,status,cropId) %}
+{% macro growForm(farmers,result,status,cropId,platform) %}
 <form action="" method="post" enctype="multipart/form-data">
+  {% if platform %}
+  <div class="field">
+    <label class="label">所属农场</label>
+        <div class="control">
+          <a class="is-link" href="farms/{{ result.farm_id }}">{{ result.farm_name }}</a>
+        </div>
+  </div>
+  {% endif %}
+
   <div class="field">
     <label class="label">负责农户名</label>
     <div class="control">
-      {% if status %}
+      {% if platform %}
+        <div class="control">
+          <a class="is-link" href="farmers/{{ result.farmer_id }}">{{ result.farmer_name }}</a>
+        </div>
+      {% elif status %}
         <div class="control">
           <input class="input" name="farmername" type="text" value="{{ result.farmer_name }}" {{ status }} />
         </div>

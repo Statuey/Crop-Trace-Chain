@@ -1,4 +1,4 @@
-{% macro infoForm(action,result,status,update) %}
+{% macro infoForm(action,result,status,update,cropId) %}
 <form action="{{ action }}" method="post" enctype="multipart/form-data" >
   <div class="field">
     <label class="label">农场名</label>
@@ -71,7 +71,10 @@
     </div>
   </div>
 
-  {% if status %}
+  {% if cropId %}
+    <div class="control">
+    </div>
+  {% elif status %}
   <div class="field is-grouped">
     <div class="control">
       <a href="/dashboard/infos/update" class="button is-light is-success">更新</a>

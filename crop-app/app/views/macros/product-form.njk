@@ -1,9 +1,22 @@
-{% macro productForm(traders,result,status,cropId) %}
+{% macro productForm(traders,result,status,cropId,platform) %}
 <form action="" method="post" enctype="multipart/form-data">
+  {% if platform %}
+  <div class="field">
+    <label class="label">所属销售商</label>
+        <div class="control">
+          <a class="is-link" href="retailers/{{ result.retailer_id }}">{{ result.retailer_name }}</a>
+        </div>
+  </div>
+  {% endif %}
+
   <div class="field">
     <label class="label">负责经销商</label>
     <div class="control">
-      {% if status %}
+      {% if platform %}
+        <div class="control">
+          <a class="is-link" href="traders/{{ result.trader_id }}">{{ result.trader_name }}</a>
+        </div>
+      {% elif status %}
         <div class="control">
           <input class="input" name="tradername" type="text" value="{{ result.trader_name }}" {{ status }} />
         </div>

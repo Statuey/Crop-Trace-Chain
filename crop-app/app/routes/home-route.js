@@ -12,6 +12,22 @@ import * as producerChain from "../services/chain-services/producer-chain-servic
 import * as processChain from "../services/chain-services/process-chain-service.js";
 import * as transportChain from "../services/chain-services/transport-chain-service.js";
 import * as retailerChain from "../services/chain-services/retailer-chain-service.js";
+import {
+  getFarmDetails,
+  getFarmerDetails,
+} from "../services/db-services/producer-db-service.js";
+import {
+  getDriverDetails,
+  getServerDetails,
+} from "../services/db-services/transport-db-service.js";
+import {
+  getFactoryDetails,
+  getWorkshopDetails,
+} from "../services/db-services/process-db-service.js";
+import {
+  getRetailerDetails,
+  getTraderDetails,
+} from "../services/db-services/retailer-db-service.js";
 const router = express.Router();
 const ccName1 = "crop";
 const ccName2 = "producer";
@@ -116,6 +132,28 @@ router.get("/trace/:cropId", async (req, res) => {
       result: result,
       status: "disabled",
       target: "home",
+      platform: "mobile",
+    });
+  } catch (err) {
+    console.error(err);
+    res.send("failed!");
+  }
+  await releaseGateway(gateway);
+});
+
+router.get("/trace/:cropId", async (req, res) => {
+  const gateway = await getGateway();
+  const network = gateway.getNetwork(channelName);
+  const cropId = req.params.cropId;
+  const contract = network.getContract(ccName1);
+  try {
+    const result = await readCrop(contract, cropId);
+    console.log(result);
+    res.render("customer/addcrop.njk", {
+      cropId: cropId,
+      result: result,
+      status: "disabled",
+      target: "home",
     });
   } catch (err) {
     console.error(err);
@@ -137,6 +175,7 @@ router.get("/trace/:cropId/growInfo", async (req, res) => {
       result: result[0],
       status: "disabled",
       target: "growInfo",
+      platform: "mobile",
     });
   } catch (err) {
     console.error(err);
@@ -158,6 +197,7 @@ router.get("/trace/:cropId/machining", async (req, res) => {
       result: result[0],
       status: "disabled",
       target: "machining",
+      platform: "mobile",
     });
   } catch (err) {
     console.error(err);
@@ -179,6 +219,7 @@ router.get("/trace/:cropId/cargo1", async (req, res) => {
       result: results[1],
       status: "disabled",
       target: "cargo1",
+      platform: "mobile",
     });
   } catch (err) {
     console.error(err);
@@ -200,6 +241,7 @@ router.get("/trace/:cropId/cargo2", async (req, res) => {
       result: results[0],
       status: "disabled",
       target: "cargo2",
+      platform: "mobile",
     });
   } catch (err) {
     console.error(err);
@@ -221,6 +263,7 @@ router.get("/trace/:cropId/product", async (req, res) => {
       result: result[0],
       status: "disabled",
       target: "product",
+      platform: "mobile",
     });
   } catch (err) {
     console.error(err);
@@ -260,5 +303,125 @@ router.get("/trace/:cropId/cert", async (req, res) => {
   }
 
   await releaseGateway(gateway);
+});
+
+router.get("/trace/:cropId/farms/:farmId", async (req, res) => {
+  const id = req.params.farmId;
+  const cropId = req.params.cropId;
+  const result = await getFarmDetails(id);
+  if (result) {
+    res.render("customer/addinfo1.njk", {
+      result: result,
+      status: "disabled",
+      cropId: cropId,
+    });
+  } else {
+    res.send("未查到该农场！");
+  }
+});
+
+router.get("/trace/:cropId/factorys/:factoryId", async (req, res) => {
+  const id = req.params.factoryId;
+  const cropId = req.params.cropId;
+  const result = await getFactoryDetails(id);
+  if (result) {
+    res.render("customer/addinfo2.njk", {
+      result: result,
+      status: "disabled",
+      cropId: cropId,
+    });
+  } else {
+    res.send("未查到该工厂！");
+  }
+});
+
+router.get("/trace/:cropId/servers/:serverId", async (req, res) => {
+  const id = req.params.serverId;
+  const cropId = req.params.cropId;
+  const result = await getServerDetails(id);
+  if (result) {
+    res.render("customer/addinfo3.njk", {
+      result: result,
+      status: "disabled",
+      cropId: cropId,
+    });
+  } else {
+    res.send("未查到该物流！");
+  }
+});
+
+router.get("/trace/:cropId/retailers/:retailerId", async (req, res) => {
+  const id = req.params.retailerId;
+  const cropId = req.params.cropId;
+  const result = await getRetailerDetails(id);
+  if (result) {
+    res.render("customer/addinfo4.njk", {
+      result: result,
+      status: "disabled",
+      cropId: cropId,
+    });
+  } else {
+    res.send("未查到该销售商！");
+  }
+});
+
+router.get("/trace/:cropId/workshops/:workshopId", async (req, res) => {
+  const id = req.params.workshopId;
+  const cropId = req.params.cropId;
+  const result = await getWorkshopDetails(id);
+  if (result) {
+    res.render("customer/addworkshop.njk", {
+      result: result,
+      status: "disabled",
+      cropId: cropId,
+    });
+  } else {
+    res.send("未查到该车间！");
+  }
+});
+
+router.get("/trace/:cropId/farmers/:farmerId", async (req, res) => {
+  const id = req.params.farmerId;
+  const cropId = req.params.cropId;
+  const result = await getFarmerDetails(id);
+  if (result) {
+    res.render("customer/addfarmer.njk", {
+      result: result,
+      status: "disabled",
+      cropId: cropId,
+    });
+  } else {
+    res.send("未查到该农户！");
+  }
+});
+
+router.get("/trace/:cropId/drivers/:driverId", async (req, res) => {
+  const id = req.params.driverId;
+  const cropId = req.params.cropId;
+  const result = await getDriverDetails(id);
+  if (result) {
+    res.render("customer/adddriver.njk", {
+      result: result,
+      status: "disabled",
+      cropId: cropId,
+    });
+  } else {
+    res.send("未查到该司机！");
+  }
+});
+
+router.get("/trace/:cropId/traders/:traderId", async (req, res) => {
+  const id = req.params.traderId;
+  const cropId = req.params.cropId;
+  const result = await getTraderDetails(id);
+  if (result) {
+    res.render("customer/addtrader.njk", {
+      result: result,
+      status: "disabled",
+      cropId: cropId,
+    });
+  } else {
+    res.send("未查到该经销商！");
+  }
 });
 export default router;

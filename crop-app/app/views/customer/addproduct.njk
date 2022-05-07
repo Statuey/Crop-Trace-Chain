@@ -11,7 +11,7 @@
       <h1 class="title">创建销售单</h1>
       <h2 class="subtitle">请仔细输入以下信息，一旦创建将无法修改！</h2>
       {% endif %}
-      {{ productForm(traders,result,status,cropId = cropId) }}
+      {{ productForm(traders,result,status,cropId = cropId,platform=platform) }}
     </section>
   </div>
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends "layouts/customer.njk" %}
+
+{% from "macros/fac-form.njk" import facForm %}
+
+{% block content %}
+  <div class="container">
+      <section class="section">
+      {% if status %}
+      <h1 class="title">工厂信息</h1>
+      <h2 class="subtitle">factory details</h2>
+      {% elif update %}
+        <h1 class="title">更新工厂信息</h1>
+        <h2 class="subtitle">factory details update</h2>   
+      {% else %}
+        <h1 class="title">添加工厂信息</h1>
+        <h2 class="subtitle">请仔细输入以下信息</h2>
+      {% endif %}
+    {{ facForm("/dashboard/infos",result,status,update,cropId=cropId) }}
+  </div>
+{% endblock %}

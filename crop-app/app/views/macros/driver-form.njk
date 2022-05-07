@@ -1,4 +1,4 @@
-{% macro driverForm(result,status) %}
+{% macro driverForm(result,status,cropId) %}
 <form action="" method="post">
   <div class="field">
     <label class="label">司机名</label>
@@ -46,7 +46,10 @@
     </div>
   </div>
 
-  {% if status %}
+ {% if cropId %}
+    <div class="control">
+    </div>
+  {% elif status %}
     <div class="control">
       <a href="/dashboard/members" class="button is-link">返回</a>
     </div>

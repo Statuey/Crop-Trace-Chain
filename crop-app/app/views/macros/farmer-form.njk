@@ -1,4 +1,4 @@
-{% macro farmerForm(result,status) %}
+{% macro farmerForm(result,status,cropId) %}
 <form action="" method="post">
   <div class="field">
     <label class="label">农户名</label>
@@ -46,7 +46,11 @@
     </div>
   </div>
 
-  {% if status %}
+
+ {% if cropId %}
+    <div class="control">
+    </div>
+  {% elif status %}
     <div class="control">
       <a href="/dashboard/members" class="button is-link">返回</a>
     </div>

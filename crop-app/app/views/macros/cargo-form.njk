@@ -1,9 +1,21 @@
-{% macro cargoForm(drivers,result,status,cropId) %}
+{% macro cargoForm(drivers,result,status,cropId,platform) %}
 <form action="" method="post" enctype="multipart/form-data">
+  {% if platform %}
+  <div class="field">
+    <label class="label">所属物流商</label>
+        <div class="control">
+          <a class="is-link" href="servers/{{ result.server_id }}">{{ result.server_name }}</a>
+        </div>
+  </div>
+  {% endif %}
   <div class="field">
     <label class="label">负责司机</label>
     <div class="control">
-      {% if status %}
+      {% if platform %}
+        <div class="control">
+          <a class="is-link" href="drivers/{{ result.driver_id }}">{{ result.driver_name }}</a>
+        </div>
+      {% elif status %}
         <div class="control">
           <input class="input" name="drivername" type="text" value="{{ result.driver_name }}" {{ status }} />
         </div>

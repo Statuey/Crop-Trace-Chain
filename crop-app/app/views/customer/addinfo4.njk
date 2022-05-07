@@ -1,0 +1,20 @@
+{% extends "layouts/customer.njk" %}
+
+{% from "macros/ret-form.njk" import retForm %}
+
+{% block content %}
+  <div class="container">
+      <section class="section">
+      {% if status %}
+      <h1 class="title">销售商信息</h1>
+      <h2 class="subtitle">factory details</h2>
+      {% elif update %}
+        <h1 class="title">更新销售商信息</h1>
+        <h2 class="subtitle">retaile details update</h2>   
+      {% else %}
+        <h1 class="title">添加销售商信息</h1>
+        <h2 class="subtitle">请仔细输入以下信息</h2>
+      {% endif %}
+    {{ retForm("/dashboard/infos",result,status,update,cropId=cropId) }}
+  </div>
+{% endblock %}
